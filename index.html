@@ -12,7 +12,32 @@
 </head>
 
 <body>
+    <dialog id="dialog-box">
+        <form method="dialog">
+            <h1 class="book-dialog-header">Book details</h1>
+            <div>
+                <label class="book-dialog-label" for="book-title">Title</label>
+                <input class="book-dialog-input" id="book-title" type="text" placeholder="To Kill a Mockingbird"
+                    required>
+            </div>
+            <div>
+                <label class="book-dialog-label" for="book-author">Author</label>
+                <input class="book-dialog-input" id="book-author" type="text" placeholder="Harper Lee" required>
+            </div>
+            <div>
+                <label class="book-dialog-label" for="book-pages">Pages</label>
+                <input class="book-dialog-input" id="book-pages" type="number" step="1" min="1" placeholder="281"
+                    required>
+            </div>
+            <div>
+                <label class="book-dialog-label" for="book-status">Have you read it?</label>
+                <input id="book-status" type="checkbox" required>
+            </div>
+            <button class="submit-book-btn" type="submit">Submit</button>
+        </form>
+    </dialog>
 
+    <button class="add-book-btn">Add book</button>
 </body>
 
 </html>
