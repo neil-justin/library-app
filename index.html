@@ -17,12 +17,13 @@
             <h1 class="book-dialog-header">Book details</h1>
             <div>
                 <label class="book-dialog-label" for="book-title">Title</label>
-                <input class="book-dialog-input" id="book-title" type="text" placeholder="To Kill a Mockingbird"
-                    required>
+                <input class="book-dialog-input" id="book-title" minlength="1" type="text"
+                    placeholder="To Kill a Mockingbird" required>
             </div>
             <div>
                 <label class="book-dialog-label" for="book-author">Author</label>
-                <input class="book-dialog-input" id="book-author" type="text" placeholder="Harper Lee" required>
+                <input class="book-dialog-input" id="book-author" minlength="1" type="text" placeholder="Harper Lee"
+                    required>
             </div>
             <div>
                 <label class="book-dialog-label" for="book-pages">Pages</label>
@@ -31,7 +32,7 @@
             </div>
             <div>
                 <label class="book-dialog-label" for="book-status">Have you read it?</label>
-                <input id="book-status" type="checkbox" required>
+                <input id="book-status" type="checkbox">
             </div>
             <button class="submit-book-btn" type="submit">Submit</button>
         </form>
