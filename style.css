@@ -9,6 +9,17 @@ body {
     --accent-color: #7f5539;
 }
 
+table {
+    text-align: left;
+}
+
+.book-status-btn {
+    appearance: none;
+    border: 1px solid gray;
+    border-radius: 3px;
+    background-color: white;
+}
+
 .add-book-btn {
     appearance: none;
     border: 2px solid var(--accent-color);
