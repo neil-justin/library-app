@@ -20,7 +20,7 @@ table {
     background-color: white;
 }
 
-.add-book-btn {
+#add-book-btn {
     appearance: none;
     border: 2px solid var(--accent-color);
     border-radius: 8px;
@@ -42,7 +42,7 @@ table {
 
 }
 
-.book-dialog-header {
+#book-dialog-header {
     display: inline-block;
     margin: 0 0 15px;
     width: 100%;

@@ -1,10 +1,10 @@
-const addBookBtn = document.querySelector('.add-book-btn');
+const addBookBtn = document.querySelector('#add-book-btn');
 const bookDialog = document.querySelector('#dialog-box');
-const submitBookBtn = bookDialog.querySelector('.submit-book-btn');
 const bookTitleInput = bookDialog.querySelector('#book-title');
 const bookAuthorInput = bookDialog.querySelector('#book-author');
 const bookPagesInput = bookDialog.querySelector('#book-pages');
 const bookStatusInput = bookDialog.querySelector('#book-status');
+const submitBookBtn = bookDialog.querySelector('#submit-book-btn');
 
 addBookBtn.addEventListener('click', () => {
     if (typeof bookDialog.showModal === 'function') {
@@ -12,16 +12,10 @@ addBookBtn.addEventListener('click', () => {
     }
 });
 
-let myLibrary = [
-    {
-        title: 'The Giving Tree',
-        author: 'Shel Silverstein',
-        pages: '64',
-        status: true,
-    },
-];
+let myLibrary = [];
+let book = new Book('The Giving Tree', 'Shel Silverstein', '64', true);
+myLibrary.push(book);
 
-let book;
 let bookInLibrary = true;
 
 function Book(title, author, pages, status) {
@@ -39,7 +33,7 @@ function addBookToLibrary(title, author, pages, status) {
     myLibrary.push(book);
 
     for (const property in book) {
-        if (book[[property]] === '') {
+        if (book[property] === '') {
             myLibrary.pop();
             bookInLibrary = false;
             alert('Please fill all the fields');
@@ -65,16 +59,15 @@ function displayBook() {
     /* prevent the function from displaying the book IF the book wasn't stored in
     the myLibrary array */
     if (bookInLibrary) {
-        for (const property in myLibrary[myLibrary.length - 1]) {
+        for (const property in book) {
             const td = document.createElement('td');
 
             if (property === 'status') {
                 bookStatusBtn = document.createElement('button');
                 bookStatusBtn.classList.add('book-status-btn');
-                bookStatusBtn.setAttribute('data-status-property', `${myLibrary.length - 1}`)
                 td.appendChild(bookStatusBtn);
 
-                displayBookStatus(myLibrary[myLibrary.length - 1][[property]]);
+                displayBookStatus(book.status);
 
                 function displayBookStatus(status) {
                     switch (status) {
@@ -85,7 +78,7 @@ function displayBook() {
                     }
                 }
             } else {
-                td.textContent = myLibrary[myLibrary.length - 1][property];
+                td.textContent = book[property];
             }
 
             tr.appendChild(td);
@@ -101,7 +94,7 @@ function displayBook() {
                 bookStatusBtn.textContent = 'Read';
         }
 
-        const bookArrayIndex = parseInt(bookStatusBtn.getAttribute('data-status-property'));
+        const bookArrayIndex = parseInt(tr.getAttribute('data-array-element'));
         myLibrary[bookArrayIndex].status = myLibrary[bookArrayIndex].status ? false : true;
     });
 };

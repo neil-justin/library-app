@@ -14,7 +14,7 @@
 <body>
     <dialog id="dialog-box">
         <form method="dialog">
-            <h1 class="book-dialog-header">Book details</h1>
+            <h1 id="book-dialog-header">Book details</h1>
             <div>
                 <label class="book-dialog-label" for="book-title">Title</label>
                 <input class="book-dialog-input" id="book-title" minlength="1" type="text"
@@ -34,10 +34,10 @@
                 <label class="book-dialog-label" for="book-status">Have you read it?</label>
                 <input id="book-status" type="checkbox">
             </div>
-            <button class="submit-book-btn" type="submit">Submit</button>
+            <button id="submit-book-btn" type="submit">Submit</button>
         </form>
     </dialog>
-    <button class="add-book-btn">Add book</button>
+    <button id="add-book-btn">Add book</button>
 
     <table>
         <thead>
