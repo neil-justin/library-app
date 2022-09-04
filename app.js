@@ -1,5 +1,3 @@
-window.addEventListener('load', () => displayBook())
-
 const addBookBtn = document.querySelector('.add-book-btn');
 const bookDialog = document.querySelector('#dialog-box');
 const submitBookBtn = bookDialog.querySelector('.submit-book-btn');
@@ -23,15 +21,15 @@ let myLibrary = [
     },
 ];
 
+let book;
+let bookInLibrary = true;
+
 function Book(title, author, pages, status) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.status = status;
 }
-
-let book;
-let bookInLibrary = true;
 
 submitBookBtn.addEventListener('click', () => addBookToLibrary(bookTitleInput.value,
     bookAuthorInput.value, bookPagesInput.value, bookStatusInput.checked));
@@ -50,34 +48,40 @@ function addBookToLibrary(title, author, pages, status) {
     }
 
     displayBook();
-    return book;
 }
+
+displayBook();
 
 function displayBook() {
     const tbody = document.querySelector('tbody');
     const tr = document.createElement('tr');
+    /* Associating the DOM element with the actual book objects so that I could
+    manipulate */
+    tr.setAttribute('data-array-element', `${myLibrary.length - 1}`);
     tbody.appendChild(tr)
+
+    let bookStatusBtn;
 
     /* prevent the function from displaying the book IF the book wasn't stored in
     the myLibrary array */
-    if (bookInLibrary === true) {
+    if (bookInLibrary) {
         for (const property in myLibrary[myLibrary.length - 1]) {
             const td = document.createElement('td');
 
             if (property === 'status') {
-                const statusButton = document.createElement('button');
-                statusButton.classList.add('book-status-btn');
-                td.appendChild(statusButton);
+                bookStatusBtn = document.createElement('button');
+                bookStatusBtn.classList.add('book-status-btn');
+                bookStatusBtn.setAttribute('data-status-property', `${myLibrary.length - 1}`)
+                td.appendChild(bookStatusBtn);
 
-                checkBookStatus(myLibrary[myLibrary.length - 1][[property]]);
+                displayBookStatus(myLibrary[myLibrary.length - 1][[property]]);
 
-                function checkBookStatus(status) {
+                function displayBookStatus(status) {
                     switch (status) {
                         case true:
-                            statusButton.textContent = 'Read';
-                            break;
+                            return bookStatusBtn.textContent = 'Read';
                         case false:
-                            statusButton.textContent = 'Want to Read';
+                            return bookStatusBtn.textContent = 'Want to Read';
                     }
                 }
             } else {
@@ -87,4 +91,17 @@ function displayBook() {
             tr.appendChild(td);
         }
     }
-}
+
+    bookStatusBtn.addEventListener('click', () => {
+        switch (bookStatusBtn.textContent) {
+            case 'Read':
+                bookStatusBtn.textContent = 'Want to Read';
+                break;
+            case 'Want to Read':
+                bookStatusBtn.textContent = 'Read';
+        }
+
+        const bookArrayIndex = parseInt(bookStatusBtn.getAttribute('data-status-property'));
+        myLibrary[bookArrayIndex].status = myLibrary[bookArrayIndex].status ? false : true;
+    });
+};
