@@ -48,13 +48,15 @@ function displayBook(isBookInLibrary) {
             bookPagesInput.value, bookStatusInput.checked);
     }
 
+    let removeBookBtn;
     let bookStatusBtn;
+    let tr;
 
     if (Object.keys(book).length === 0) {
         displayBook(false);
     } else {
         const tbody = document.querySelector('tbody');
-        const tr = document.createElement('tr');
+        tr = document.createElement('tr');
         /* Associating the DOM element with the actual book objects so that I could
         manipulate */
         tr.setAttribute('data-array-element', `${myLibrary.length - 1}`);
@@ -63,7 +65,15 @@ function displayBook(isBookInLibrary) {
         for (const property in book) {
             const td = document.createElement('td');
 
-            if (property === 'status') {
+            if (property === 'title') {
+                td.classList.add('title-td');
+                const bookTitleSpan = document.createElement('span');
+                bookTitleSpan.textContent = book[property];
+                removeBookBtn = document.createElement('button');
+                removeBookBtn.textContent = 'Remove'
+                td.appendChild(bookTitleSpan);
+                td.appendChild(removeBookBtn);
+            } else if (property === 'status') {
                 bookStatusBtn = document.createElement('button');
                 bookStatusBtn.classList.add('book-status-btn');
                 td.appendChild(bookStatusBtn);
@@ -86,6 +96,8 @@ function displayBook(isBookInLibrary) {
         }
     }
 
+    const bookArrayIndex = parseInt(tr.getAttribute('data-array-element'));
+
     bookStatusBtn.addEventListener('click', () => {
         switch (bookStatusBtn.textContent) {
             case 'Read':
@@ -95,7 +107,15 @@ function displayBook(isBookInLibrary) {
                 bookStatusBtn.textContent = 'Read';
         }
 
-        const bookArrayIndex = parseInt(tr.getAttribute('data-array-element'));
         myLibrary[bookArrayIndex].status = myLibrary[bookArrayIndex].status ? false : true;
     });
+
+    removeBookBtn.addEventListener('click', () => removeBook(bookArrayIndex, myLibrary));
 };
+
+function removeBook(bookIndex, bookArray) {
+    bookArray.splice(bookIndex, 1);
+
+    const book = document.querySelector(`[data-array-element='${bookIndex}']`);
+    book.remove();
+}
