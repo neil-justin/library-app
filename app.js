@@ -65,31 +65,36 @@ function displayBook(isBookInLibrary) {
         for (const property in book) {
             const td = document.createElement('td');
 
-            if (property === 'title') {
-                td.classList.add('title-td');
-                const bookTitleSpan = document.createElement('span');
-                bookTitleSpan.textContent = book[property];
-                removeBookBtn = document.createElement('button');
-                removeBookBtn.textContent = 'Remove'
-                td.appendChild(bookTitleSpan);
-                td.appendChild(removeBookBtn);
-            } else if (property === 'status') {
-                bookStatusBtn = document.createElement('button');
-                bookStatusBtn.classList.add('book-status-btn');
-                td.appendChild(bookStatusBtn);
+            switch (property) {
+                case 'title':
+                    td.classList.add('td-title');
+                    const bookTitleSpan = document.createElement('span');
+                    bookTitleSpan.textContent = book[property];
+                    removeBookBtn = document.createElement('button');
+                    removeBookBtn.textContent = 'Remove'
+                    td.appendChild(bookTitleSpan);
+                    td.appendChild(removeBookBtn);
+                    break;
+                case 'status':
+                    bookStatusBtn = document.createElement('button');
+                    bookStatusBtn.classList.add('book-status-btn');
+                    td.appendChild(bookStatusBtn);
 
-                displayBookStatus(book.status);
-
-                function displayBookStatus(status) {
-                    switch (status) {
-                        case true:
-                            return bookStatusBtn.textContent = 'Read';
-                        case false:
-                            return bookStatusBtn.textContent = 'Want to Read';
+                    function displayBookStatus(status) {
+                        switch (status) {
+                            case true:
+                                return bookStatusBtn.textContent = 'Read';
+                            case false:
+                                return bookStatusBtn.textContent = 'Want to Read';
+                        }
                     }
-                }
-            } else {
-                td.textContent = book[property];
+
+                    displayBookStatus(book.status);
+
+                    break;
+                case 'author':
+                case 'pages':
+                    td.textContent = book[property];
             }
 
             tr.appendChild(td);
@@ -107,14 +112,14 @@ function displayBook(isBookInLibrary) {
                 bookStatusBtn.textContent = 'Read';
         }
 
-        myLibrary[bookArrayIndex].status = myLibrary[bookArrayIndex].status ? false : true;
+        myLibrary[bookArrayIndex].status = !myLibrary[bookArrayIndex].status;
     });
 
     removeBookBtn.addEventListener('click', () => removeBook(bookArrayIndex, myLibrary));
 };
 
-function removeBook(bookIndex, bookArray) {
-    bookArray.splice(bookIndex, 1);
+function removeBook(bookIndex, library) {
+    library.splice(bookIndex, 1);
 
     const book = document.querySelector(`[data-array-element='${bookIndex}']`);
     book.remove();
