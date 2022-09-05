@@ -15,8 +15,7 @@ addBookBtn.addEventListener('click', () => {
 let myLibrary = [];
 let book = new Book('The Giving Tree', 'Shel Silverstein', '64', true);
 myLibrary.push(book);
-
-let bookInLibrary = true;
+let isBookInLibrary;
 
 function Book(title, author, pages, status) {
     this.title = title;
@@ -25,8 +24,7 @@ function Book(title, author, pages, status) {
     this.status = status;
 }
 
-submitBookBtn.addEventListener('click', () => addBookToLibrary(bookTitleInput.value,
-    bookAuthorInput.value, bookPagesInput.value, bookStatusInput.checked));
+submitBookBtn.addEventListener('click', () => displayBook(false));
 
 function addBookToLibrary(title, author, pages, status) {
     book = new Book(title, author, pages, status);
@@ -34,31 +32,35 @@ function addBookToLibrary(title, author, pages, status) {
 
     for (const property in book) {
         if (book[property] === '') {
+            book = {};
             myLibrary.pop();
-            bookInLibrary = false;
-            alert('Please fill all the fields');
-            break;
+            return;
         }
     }
 
-    displayBook();
+    return book;
 }
 
-displayBook();
+displayBook(true);
 
-function displayBook() {
-    const tbody = document.querySelector('tbody');
-    const tr = document.createElement('tr');
-    /* Associating the DOM element with the actual book objects so that I could
-    manipulate */
-    tr.setAttribute('data-array-element', `${myLibrary.length - 1}`);
-    tbody.appendChild(tr)
+function displayBook(isBookInLibrary) {
+    if (!isBookInLibrary) {
+        addBookToLibrary(bookTitleInput.value, bookAuthorInput.value,
+            bookPagesInput.value, bookStatusInput.checked);
+    }
 
     let bookStatusBtn;
 
-    /* prevent the function from displaying the book IF the book wasn't stored in
-    the myLibrary array */
-    if (bookInLibrary) {
+    if (Object.keys(book).length === 0) {
+        displayBook(false);
+    } else {
+        const tbody = document.querySelector('tbody');
+        const tr = document.createElement('tr');
+        /* Associating the DOM element with the actual book objects so that I could
+        manipulate */
+        tr.setAttribute('data-array-element', `${myLibrary.length - 1}`);
+        tbody.appendChild(tr)
+
         for (const property in book) {
             const td = document.createElement('td');
 
