@@ -15,7 +15,6 @@ addBookBtn.addEventListener('click', () => {
 let myLibrary = [];
 let book = new Book('The Giving Tree', 'Shel Silverstein', '64', true);
 myLibrary.push(book);
-let isBookInLibrary;
 
 function Book(title, author, pages, status) {
     this.title = title;
