@@ -12,45 +12,49 @@
 </head>
 
 <body>
-    <dialog id="dialog-box">
-        <form method="dialog">
-            <h1 id="book-dialog-header">Book details</h1>
-            <div>
-                <label class="book-dialog-label" for="book-title">Title</label>
-                <input class="book-dialog-input" id="book-title" minlength="1" type="text"
-                    placeholder="To Kill a Mockingbird" required>
-            </div>
-            <div>
-                <label class="book-dialog-label" for="book-author">Author</label>
-                <input class="book-dialog-input" id="book-author" minlength="1" type="text" placeholder="Harper Lee"
-                    required>
-            </div>
-            <div>
-                <label class="book-dialog-label" for="book-pages">Pages</label>
-                <input class="book-dialog-input" id="book-pages" type="number" step="1" min="1" placeholder="281"
-                    required>
-            </div>
-            <div>
-                <label class="book-dialog-label" for="book-status">Have you read it?</label>
-                <input id="book-status" type="checkbox">
-            </div>
-            <button id="submit-book-btn" type="submit">Submit</button>
-        </form>
-    </dialog>
-    <button id="add-book-btn">Add book</button>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Pages</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <main>
+        <dialog id="dialog-box">
+            <form method="dialog">
+                <h1 id="book-dialog-header">Book details</h1>
+                <div>
+                    <label class="book-dialog-label" for="book-title">Title</label>
+                    <input class="book-dialog-input" id="book-title" minlength="1" type="text"
+                        placeholder="To Kill a Mockingbird" required>
+                </div>
+                <div>
+                    <label class="book-dialog-label" for="book-author">Author</label>
+                    <input class="book-dialog-input" id="book-author" minlength="1" type="text" placeholder="Harper Lee"
+                        required>
+                </div>
+                <div>
+                    <label class="book-dialog-label" for="book-pages">Pages</label>
+                    <input class="book-dialog-input" id="book-pages" type="number" step="1" min="1" placeholder="281"
+                        required>
+                </div>
+                <div id="checkbox-wrapper">
+                    <label class="book-dialog-label" for="book-status">Have you read it?</label>
+                    <input id="book-status" type="checkbox">
+                </div>
+                <button id="submit-book-btn" type="submit">Submit</button>
+            </form>
+        </dialog>
+        <div id="content">
+            <h1>Book Library</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Pages</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <button id="add-book-btn">Add book</button>
+        </div>
+    </main>
 </body>
 
 </html>

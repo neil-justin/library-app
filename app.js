@@ -67,15 +67,12 @@ function displayBook(isBookInLibrary) {
 
             switch (property) {
                 case 'title':
-                    td.classList.add('td-title');
-                    const bookTitleSpan = document.createElement('span');
-                    bookTitleSpan.textContent = book[property];
-                    removeBookBtn = document.createElement('button');
-                    removeBookBtn.textContent = 'Remove'
-                    td.appendChild(bookTitleSpan);
-                    td.appendChild(removeBookBtn);
+                case 'author':
+                case 'pages':
+                    td.textContent = book[property];
                     break;
                 case 'status':
+                    td.classList.add('td-status');
                     bookStatusBtn = document.createElement('button');
                     bookStatusBtn.classList.add('book-status-btn');
                     td.appendChild(bookStatusBtn);
@@ -91,12 +88,11 @@ function displayBook(isBookInLibrary) {
 
                     displayBookStatus(book.status);
 
-                    break;
-                case 'author':
-                case 'pages':
-                    td.textContent = book[property];
+                    removeBookBtn = document.createElement('button');
+                    removeBookBtn.classList.add('remove-book-btn');
+                    removeBookBtn.textContent = 'Remove'
+                    td.appendChild(removeBookBtn);
             }
-
             tr.appendChild(td);
         }
     }
