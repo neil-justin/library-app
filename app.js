@@ -28,6 +28,16 @@ const bookPagesInput = bookDialog.querySelector('#book-pages');
 const bookStatusInput = bookDialog.querySelector('#book-status');
 
 function displayBook(isBookInLibrary) {
+    const errorMessageReference = document.querySelector('#error-message');
+
+    if (errorMessageReference !== null) {
+        /* revert the button to its initial state so that the form will be
+            close automatically when the inputted book details is not
+            a duplicate */
+        submitBookBtn.setAttribute('type', 'submit');
+        errorMessageReference.remove();
+    }
+
     for (let i = 0; i < myLibrary.length; i++) {
         if (bookTitleInput.value === myLibrary[i].title &&
             bookAuthorInput.value === myLibrary[i].author) {
@@ -64,15 +74,6 @@ function displayBook(isBookInLibrary) {
     }
 
     if (!(Object.keys(book).length === 0)) {
-        const errorMessageReference = document.querySelector('#error-message');
-
-        if (errorMessageReference !== null) {
-            /* revert the button to its initial state so that the form will be
-                close automatically */
-            submitBookBtn.setAttribute('type', 'submit');
-            errorMessageReference.remove();
-        }
-
         let removeBookBtn;
         let bookStatusBtn;
 
