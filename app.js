@@ -1,9 +1,5 @@
 const addBookBtn = document.querySelector('#add-book-btn');
 const bookDialog = document.querySelector('#dialog-box');
-const bookTitleInput = bookDialog.querySelector('#book-title');
-const bookAuthorInput = bookDialog.querySelector('#book-author');
-const bookPagesInput = bookDialog.querySelector('#book-pages');
-const bookStatusInput = bookDialog.querySelector('#book-status');
 const submitBookBtn = bookDialog.querySelector('#submit-book-btn');
 
 addBookBtn.addEventListener('click', () => {
@@ -25,26 +21,28 @@ function Book(title, author, pages, status) {
 
 submitBookBtn.addEventListener('click', () => displayBook(false));
 
-function addBookToLibrary(title, author, pages, status) {
-    book = new Book(title, author, pages, status);
-    myLibrary.push(book);
-
-    for (const property in book) {
-        if (book[property] === '') {
-            book = {};
-            myLibrary.pop();
-            return;
-        }
-    }
-
-    return book;
-}
-
-displayBook(true);
+const bookTitleInput = bookDialog.querySelector('#book-title');
+const bookAuthorInput = bookDialog.querySelector('#book-author');
+const bookPagesInput = bookDialog.querySelector('#book-pages');
+const bookStatusInput = bookDialog.querySelector('#book-status');
 
 function displayBook(isBookInLibrary) {
     if (!isBookInLibrary) {
-        addBookToLibrary(bookTitleInput.value, bookAuthorInput.value,
+        // Immediately invoke function
+        (function (title, author, pages, status) {
+            book = new Book(title, author, pages, status);
+            myLibrary.push(book);
+
+            for (const property in book) {
+                if (book[property] === '') {
+                    book = {};
+                    myLibrary.pop();
+                    return;
+                }
+            }
+
+            return book;
+        })(bookTitleInput.value, bookAuthorInput.value,
             bookPagesInput.value, bookStatusInput.checked);
     }
 
@@ -71,22 +69,21 @@ function displayBook(isBookInLibrary) {
                 case 'pages':
                     td.textContent = book[property];
                     break;
+
                 case 'status':
                     td.classList.add('td-status');
                     bookStatusBtn = document.createElement('button');
                     bookStatusBtn.classList.add('book-status-btn');
                     td.appendChild(bookStatusBtn);
 
-                    function displayBookStatus(status) {
+                    (function (status) {
                         switch (status) {
                             case true:
                                 return bookStatusBtn.textContent = 'Read';
                             case false:
                                 return bookStatusBtn.textContent = 'Want to Read';
                         }
-                    }
-
-                    displayBookStatus(book.status);
+                    })(book.status);
 
                     removeBookBtn = document.createElement('button');
                     removeBookBtn.classList.add('remove-book-btn');
@@ -111,12 +108,12 @@ function displayBook(isBookInLibrary) {
         myLibrary[bookArrayIndex].status = !myLibrary[bookArrayIndex].status;
     });
 
-    removeBookBtn.addEventListener('click', () => removeBook(bookArrayIndex, myLibrary));
+    removeBookBtn.addEventListener('click', () => {
+        myLibrary.splice(bookArrayIndex, 1);
+
+        const book = document.querySelector(`[data-array-element='${bookArrayIndex}']`);
+        book.remove();
+    });
 };
 
-function removeBook(bookIndex, library) {
-    library.splice(bookIndex, 1);
-
-    const book = document.querySelector(`[data-array-element='${bookIndex}']`);
-    book.remove();
-}
+displayBook(true);
