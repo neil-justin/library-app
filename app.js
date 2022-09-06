@@ -21,13 +21,31 @@ function Book(title, author, pages, status) {
 
 submitBookBtn.addEventListener('click', () => displayBook(false));
 
+const form = bookDialog.querySelector('form');
 const bookTitleInput = bookDialog.querySelector('#book-title');
 const bookAuthorInput = bookDialog.querySelector('#book-author');
 const bookPagesInput = bookDialog.querySelector('#book-pages');
 const bookStatusInput = bookDialog.querySelector('#book-status');
 
 function displayBook(isBookInLibrary) {
-    if (!isBookInLibrary) {
+    for (let i = 0; i < myLibrary.length; i++) {
+        if (bookTitleInput.value === myLibrary[i].title &&
+            bookAuthorInput.value === myLibrary[i].author) {
+            /* to prevent form from automatically closing when the submit
+                button was clicked */
+            submitBookBtn.setAttribute('type', 'button');
+
+            const errorMessage = document.createElement('p');
+            errorMessage.setAttribute('id', 'error-message');
+            errorMessage.textContent = 'This book already exists in your library';
+            form.appendChild(errorMessage);
+
+            obj = {};
+            return isBookInLibrary = true;
+        }
+    }
+
+    if (isBookInLibrary === false) {
         // Immediately invoke function
         (function (title, author, pages, status) {
             book = new Book(title, author, pages, status);
@@ -35,9 +53,8 @@ function displayBook(isBookInLibrary) {
 
             for (const property in book) {
                 if (book[property] === '') {
-                    book = {};
                     myLibrary.pop();
-                    return;
+                    return book = {};
                 }
             }
 
@@ -46,15 +63,21 @@ function displayBook(isBookInLibrary) {
             bookPagesInput.value, bookStatusInput.checked);
     }
 
-    let removeBookBtn;
-    let bookStatusBtn;
-    let tr;
+    if (!(Object.keys(book).length === 0)) {
+        const errorMessageReference = document.querySelector('#error-message');
 
-    if (Object.keys(book).length === 0) {
-        displayBook(false);
-    } else {
+        if (errorMessageReference !== null) {
+            /* revert the button to its initial state so that the form will be
+                close automatically */
+            submitBookBtn.setAttribute('type', 'submit');
+            errorMessageReference.remove();
+        }
+
+        let removeBookBtn;
+        let bookStatusBtn;
+
         const tbody = document.querySelector('tbody');
-        tr = document.createElement('tr');
+        const tr = document.createElement('tr');
         /* Associating the DOM element with the actual book objects so that I could
         manipulate */
         tr.setAttribute('data-array-element', `${myLibrary.length - 1}`);
@@ -69,7 +92,6 @@ function displayBook(isBookInLibrary) {
                 case 'pages':
                     td.textContent = book[property];
                     break;
-
                 case 'status':
                     td.classList.add('td-status');
                     bookStatusBtn = document.createElement('button');
@@ -90,30 +112,31 @@ function displayBook(isBookInLibrary) {
                     removeBookBtn.textContent = 'Remove'
                     td.appendChild(removeBookBtn);
             }
+
             tr.appendChild(td);
         }
+
+        const bookArrayIndex = parseInt(tr.getAttribute('data-array-element'));
+
+        bookStatusBtn.addEventListener('click', () => {
+            switch (bookStatusBtn.textContent) {
+                case 'Read':
+                    bookStatusBtn.textContent = 'Want to Read';
+                    break;
+                case 'Want to Read':
+                    bookStatusBtn.textContent = 'Read';
+            }
+
+            myLibrary[bookArrayIndex].status = !myLibrary[bookArrayIndex].status;
+        });
+
+        removeBookBtn.addEventListener('click', () => {
+            myLibrary.splice(bookArrayIndex, 1);
+
+            const book = document.querySelector(`[data-array-element='${bookArrayIndex}']`);
+            book.remove();
+        });
     }
-
-    const bookArrayIndex = parseInt(tr.getAttribute('data-array-element'));
-
-    bookStatusBtn.addEventListener('click', () => {
-        switch (bookStatusBtn.textContent) {
-            case 'Read':
-                bookStatusBtn.textContent = 'Want to Read';
-                break;
-            case 'Want to Read':
-                bookStatusBtn.textContent = 'Read';
-        }
-
-        myLibrary[bookArrayIndex].status = !myLibrary[bookArrayIndex].status;
-    });
-
-    removeBookBtn.addEventListener('click', () => {
-        myLibrary.splice(bookArrayIndex, 1);
-
-        const book = document.querySelector(`[data-array-element='${bookArrayIndex}']`);
-        book.remove();
-    });
 };
 
 displayBook(true);
