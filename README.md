@@ -8,7 +8,7 @@ Getting my feet wet with object-oriented paradigm by making an object-oriented l
 ![Library app](library-app-preview.png)
 
  ## Objectives
-- Store each and every book in an object (which was created using object constructor's pre-defined properties) and store all of them in a single array.
+- Store each book in an object (that is initialized using object constructor) and store all of them in a single array.
 - Dynamically display the inputted books in a table-like manner.
 
 ## Acknowledgement
