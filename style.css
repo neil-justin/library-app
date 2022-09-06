@@ -36,10 +36,6 @@ button:hover {
     justify-self: end;
 }
 
-#add-book-btn:hover {
-    background-color: rgb(221, 221, 221);
-}
-
 #add-book-btn:hover:focus {
     outline: 0px;
 }
@@ -84,7 +80,7 @@ td {
     background-color: white;
     border: 0px;
     font-size: 12px;
-    color: rgb(55, 55, 246);
+    color: red
 }
 
 .remove-book-btn:hover {
@@ -92,12 +88,21 @@ td {
 }
 
 .book-status-btn {
-    padding: 10px 20px;
+    padding: 12px 20px 10px;
     height: 40px;
     appearance: none;
-    border: 1px solid gray;
+    border: 0px;
     border-radius: 3px;
-    background-color: rgb(229, 229, 229);
+}
+
+.want-to-read-status {
+    background-color: #2e51a2;
+    color: white;
+}
+
+.read-status {
+    background-color: #efefef;
+    color: black;
 }
 
 #dialog-box {

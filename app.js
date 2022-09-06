@@ -102,8 +102,12 @@ function displayBook(isBookInLibrary) {
                     (function (status) {
                         switch (status) {
                             case true:
+                                bookStatusBtn.classList.add('read-status');
+                                bookStatusBtn.classList.remove('want-to-read-status');
                                 return bookStatusBtn.textContent = 'Read';
                             case false:
+                                bookStatusBtn.classList.add('want-to-read-status');
+                                bookStatusBtn.classList.remove('read-status');
                                 return bookStatusBtn.textContent = 'Want to Read';
                         }
                     })(book.status);
@@ -122,9 +126,13 @@ function displayBook(isBookInLibrary) {
         bookStatusBtn.addEventListener('click', () => {
             switch (bookStatusBtn.textContent) {
                 case 'Read':
+                    bookStatusBtn.classList.add('want-to-read-status');
+                    bookStatusBtn.classList.remove('read-status');
                     bookStatusBtn.textContent = 'Want to Read';
                     break;
                 case 'Want to Read':
+                    bookStatusBtn.classList.add('read-status');
+                    bookStatusBtn.classList.remove('want-to-read-status');
                     bookStatusBtn.textContent = 'Read';
             }
 
