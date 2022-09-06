@@ -15,8 +15,8 @@ body {
     justify-items: start;
 }
 
-h1 {
-    font-size: 44px;
+#webpage-logo {
+    font-size: 38px;
 }
 
 button:hover {
@@ -119,6 +119,7 @@ td {
     width: 100%;
     text-align: center;
     color: black;
+    font-size: 30px;
 }
 
 #checkbox-wrapper {
