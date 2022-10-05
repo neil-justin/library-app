@@ -3,7 +3,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     letter-spacing: 0.5px;
-    padding: 60px 0 60px 110px;
+    padding: clamp(15px, 5%, 200px);
+    min-width: 600px;
 }
 
 :root {
@@ -23,34 +24,32 @@ button:hover {
     cursor: pointer;
 }
 
-#add-book-btn {
+#add-book-button {
     display: flex;
     align-items: center;
     appearance: none;
     background-color: white;
     font-size: 16px;
-    margin: 10px 108px 0 0;
+    margin: 10px;
     padding: 10px 20px;
     border: 0px;
     /* override #content justify-items value */
     justify-self: end;
 }
 
-#add-book-btn:hover:focus {
+#add-book-button:hover:focus {
     outline: 0px;
 }
 
 table {
     text-align: left;
     width: 100%;
-    /* prevent table from overflowing when in split-screen */
-    padding-right: 110px;
     word-wrap: break-word;
 }
 
 tr {
     display: grid;
-    grid-template-columns: repeat(2, minmax(200px, 1fr)) minmax(100px, 1fr) minmax(250px, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
     padding: 8px 0;
     border-bottom: 1px solid rgb(206, 206, 206);
@@ -68,14 +67,11 @@ td {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    column-gap: 5px;
 }
 
-.book-status-btn,
-.remove-book-btn {
+.remove-book-button {
     height: 19px;
-}
-
-.remove-book-btn {
     appearance: none;
     background-color: white;
     border: 0px;
@@ -83,13 +79,13 @@ td {
     color: red
 }
 
-.remove-book-btn:hover {
+.remove-book-button:hover {
     text-decoration: 1px underline;
 }
 
-.book-status-btn {
+.book-status-button {
     padding: 12px 20px 10px;
-    height: 40px;
+    height: auto;
     appearance: none;
     border: 0px;
     border-radius: 3px;
@@ -105,7 +101,7 @@ td {
     color: black;
 }
 
-#dialog-box {
+#book-form-dialog-box {
     border: 2px solid lightgray;
     border-radius: 10px;
     font-size: 20px;
@@ -152,9 +148,7 @@ td {
     outline: 2px solid black;
 }
 
-/* the submit button of the dialog box */
-
-#submit-book-btn {
+#submit-book-button {
     width: 100%;
     height: 35px;
     background-color: black;
