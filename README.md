@@ -1,5 +1,5 @@
  # Library app
-Familiarizing myself with just one of the methods of organizing our code (i.e. Object literals and constructors) by creating a small library app.
+A library app for tracking and storing one's favorite literature.
 
  ## Preview
  Start tracking your books by clicking [this](https://neil-justin.github.io/library-app/)
